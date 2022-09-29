@@ -1,0 +1,89 @@
+Q1)Create a CITY table with the following column.
+ans--->
+Enter password: *********
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.30 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use assignment;
+Database changed
+mysql> create table city
+    -> ;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table city
+    -> (
+    -> ID int,
+    -> name varchar(17),
+    -> countrycode varchar(3),
+    -> district varchar(20),
+    -> population int
+    -> );
+Query OK, 0 rows affected (0.48 sec)
+
+mysql> insert into table city (3878, 'Scottsdale', 'USA', 'Arizona', 202705);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table city (3878, 'Scottsdale', 'USA', 'Arizona', 202705)' at line 1
+mysql> insert into table city values (3878, 'Scottsdale', 'USA', 'Arizona', 202705);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table city values (3878, 'Scottsdale', 'USA', 'Arizona', 202705)' at line 1
+mysql> insert into city values (3878, 'Scottsdale', 'USA', 'Arizona', 202705);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into city values (3965, 'Corona', 'USA', 'California', 90000);
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into city values (3973, 'Concord', 'USA', 'California',121780);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into city values (3982, 'Cedar Rapids', 'USA', 'lowa', 120758);
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into city values (3977, 'Coral Spring', 'USA', 'florida', 87456);
+Query OK, 1 row affected (0.55 sec)
+
+mysql> select * from table city where population > 100000;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table city where population > 100000' at line 1
+mysql> ^C
+mysql> select * from city where population > 100000;
++------+--------------+-------------+------------+------------+
+| ID   | name         | countrycode | district   | population |
++------+--------------+-------------+------------+------------+
+| 3878 | Scottsdale   | USA         | Arizona    |     202705 |
+| 3973 | Concord      | USA         | California |     121780 |
+| 3982 | Cedar Rapids | USA         | lowa       |     120758 |
++------+--------------+-------------+------------+------------+
+3 rows in set (0.00 sec)
+
+===================================================================================================================================================================================
+
+Q2) Query the total population of all cities in CITY where
+District is California
+ans-->
+mysql> select sum(population) from city where district = 'California';
++-----------------+
+| sum(population) |
++-----------------+
+|          211780 |
++-----------------+
+1 row in set (0.04 sec)
+==================================================================================================================================================================================
+
+Q3) Query the average population for all cities in CITY, rounded
+down to the nearest integer.
+ans-->
+mysql> select round(avg(population)) from city;
++------------------------+
+| round(avg(population)) |
++------------------------+
+|                 124540 |
++------------------------+
+1 row in set (0.06 sec)
+ 
+
+***********************************************************************************************************************************************************************************

@@ -1,0 +1,74 @@
+Q1) What is the use of ‘this’ and ‘super’ keywords in java? explain with an example.
+Answer-->
+In java, super keyword is used to access methods of the parent class while this is used to access methods of the current class
+1)	“this”
+'this' keyword points to the current object.
+‘this’ keyword we can not use inside the static area.
+Whenever it is required to point an object from a method which is under execution because
+of that object then we use 'this' keyword.
+Following 3 main job of this keyword:
+1. Points to the current class obj.
+2. Differentiate between local and instance variable.
+3. Calling a constructor of a class from another constructor of the same class.
+
+Example: -
+	Pointing to the current class object
+		
+	public class Demo
+		{
+		//instance variable
+			int x=100;
+		
+		void fun1(){
+			//local
+			int x=500;
+			System.out.println("inside fun1() of Demo");
+			System.out.println(this); //Demo@232323 current class obj
+			System.out.println(this.x); // 100
+			System.out.println(x); //500
+		}
+		
+
+	public static void main(String[] args)
+		{
+			Demo d1=new Demo();
+			System.out.println(d1); // Demo@232323
+			d1.fun1();
+			//System.out.println(this); //Compilation Error
+		}
+	
+
+
+
+
+2)	“super”
+super keyword in Java:
+	The super keyword in Java is a reference variable that is used to refer to immediate
+	parent class object.
+	Whenever you create the instance of a subclass, an instance of parent class is created
+	implicitly which is referred by the super reference variable.
+	
+Usage of Java super Keyword
+1. super can be used to refer to the immediate parent class instance variable.
+2. super can be used to invoke the immediate parent class method.
+3. super() can be used to invoke immediate parent class constructor.
+
+Example1: referring to the immediate parent class instance variable:
+	class Animal{
+		String color="white";
+	}
+
+	class Dog extends Animal{
+		String color="black";
+		void printColor(){
+			System.out.println(color);//prints color of Dog class
+			System.out.println(super.color);//prints color of Animal class
+		}
+	}
+	class Main{
+		public static void main(String args[]){
+			Dog d=new Dog();
+			d.printColor();
+
+		}
+	}

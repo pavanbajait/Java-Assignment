@@ -1,0 +1,31 @@
+Explain the difference between dynamic polymorphism and dynamic binding ?
+Answer =
+
+Dynamic Polymorphism -
+
+Dynamic polymorphism is a process or mechanism in which a call to an overridden method is to resolve at runtime rather than compile-time. 
+It is also known as runtime polymorphism or dynamic method dispatch. We can achieve dynamic polymorphism by using the method overriding.
+In this process, an overridden method is called through a reference variable of a superclass. The determination of the method to be 
+called is based on the object being referred to by the reference variable.
+
+Properties of Dynamic Polymorphism
+
+--It decides which method is to execute at runtime
+--It can be achieved through dynamic binding.
+--It happens between different classes.
+--It is required where a subclass object is assigned to a super-class object for dynamic polymorphism.
+--Inheritance involved in dynamic polymorphism.
+
+
+Dynamic binding -
+
+Dynamic binding is determining the method to invoke at runtime instead of at compile time.
+Dynamic binding is also referred to as late binding. In Objective-C, all methods are resolved dynamically at runtime.
+The exact code executed is determined by both the method name (the selector) and the receiving object.
+
+Properties of Dynamic binding -
+
+-It takes place at runtime so do it is referred to as late binding.
+-It uses overriding methods.
+-It takes place using virtual functions.
+-Real objects use dynamic binding.

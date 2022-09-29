@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="std" class="com.pbajait.Student">  
+        <!-- collaborators and configuration for this bean go here -->
+        <constructor-arg name="roll" value="11"/>
+        <constructor-arg name="name" value="pavan"/>
+        <constructor-arg name="marks" value="45"/>
+    </bean>
+
+    <bean id="clg" class="com.pbajait.Collage">
+        <!-- collaborators and configuration for this bean go here -->
+        <property name="collage_name" value="JDIET"/>
+        <property name="student" ref="std"/>
+        <property name="collage_address" value="Yavatmal"/>
+    </bean>
+
+    <!-- more bean definitions go here -->
+
+</beans>

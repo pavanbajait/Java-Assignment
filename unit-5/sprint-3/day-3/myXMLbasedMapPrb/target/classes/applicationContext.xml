@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+        https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="e1" class="com.pbajait.Employee">  
+        <!-- collaborators and configuration for this bean go here -->
+        <constructor-arg name="empId" value="11"/>
+        <constructor-arg name="empName" value="pavan"/>
+        <constructor-arg name="address" value="hgt"/>
+        <constructor-arg name="salary" value="4500"/>
+    </bean>
+    <bean id="e2" class="com.pbajait.Employee">  
+        <!-- collaborators and configuration for this bean go here -->
+        <constructor-arg name="empId" value="12"/>
+        <constructor-arg name="empName" value="amar"/>
+        <constructor-arg name="address" value="arvi"/>
+        <constructor-arg name="salary" value="8500"/>
+    </bean>
+    <bean id="e3" class="com.pbajait.Employee">  
+        <!-- collaborators and configuration for this bean go here -->
+        <constructor-arg name="empId" value="13"/>
+        <constructor-arg name="empName" value="akash"/>
+        <constructor-arg name="address" value="seloo"/>
+        <constructor-arg name="salary" value="9500"/>
+    </bean>
+
+    <bean id="d1" class="com.pbajait.Department">
+        <!-- collaborators and configuration for this bean go here -->
+        <constructor-arg name="deptId" value="1"/>
+        <constructor-arg name="deptName" value="Sales"/>
+        <constructor-arg name="location" value="hgt"/>
+    </bean>
+    <bean id="d2" class="com.pbajait.Department">
+        <!-- collaborators and configuration for this bean go here -->
+        <constructor-arg name="deptId" value="2"/>
+        <constructor-arg name="deptName" value="Marketing"/>
+        <constructor-arg name="location" value="seloo"/>
+    </bean>
+    <bean id="d3" class="com.pbajait.Department">
+        <!-- collaborators and configuration for this bean go here -->
+        <constructor-arg name="deptId" value="3"/>
+        <constructor-arg name="deptName" value="Accounts"/>
+        <constructor-arg name="location" value="Arvi"/>
+    </bean>
+    
+    
+    <bean id="demo" class="com.pbajait.Demo" init-method="myInit" lazy-init="true"  destroy-method="cleanUp" >
+		<property name="theMap">
+			<map>
+				<entry key-ref="d1" value-ref="e1"/>
+				<entry key-ref="d2" value-ref="e2"/>
+				<entry key-ref="d3" value-ref="e3"/>
+				
+			</map>
+		</property>
+	</bean>
+
+    <!-- more bean definitions go here -->
+
+</beans>

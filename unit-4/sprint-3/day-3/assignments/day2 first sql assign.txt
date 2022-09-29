@@ -1,0 +1,210 @@
+Q1)Display the students' details (who live in Delhi) and have enrolled in a Java Course.
+ans-->
+mysql> create table Student(S_ID char(2), S_NAME varchar(10), S_ADDRESS varchar(10), S_PHONE char(10), S_AGE int);
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> insert into student values('S1', 'Ram', 'Delhi', '9455123451', 18), ('S2', 'Gurgaon', '9654123847', 18), ('S3', 'Sujit', 'Chandigrah', '9178561249',20),('S4', 'Suresh', 'Delhi', '9156487596',18), ('S5', 'Ratan', 'Delhi', '9567849254', 20);
+ERROR 1136 (21S01): Column count doesn't match value count at row 2
+mysql> insert into student values('S1', 'Ram', 'Delhi', '9455123451', 18), ('S2','Ramesh', 'Gurgaon','9654123847', 18), ('S3', 'Sujit', 'Chandigrah', '9178561249',20),('S4', 'Suresh', 'Delhi', '9156487596',18), ('S5', 'Ratan', 'Delhi', '9567849254', 20);
+Query OK, 5 rows affected (0.09 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> create table Student_course(S_ID char(2), C_ID char(2));
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> insert into Student_course values('S1', 'C1'),('S1', 'C3'),('S2','C1'),('S3', 'C2'),('S4', 'C2'),('S4', 'C3'),('S5', 'C2');
+Query OK, 7 rows affected (0.07 sec)
+Records: 7  Duplicates: 0  Warnings: 0
+
+mysql>  create table Course(C_ID char(2), C_NAME varchar(8));
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> insert into course values('C1', 'DSA'),('C2', 'JAVA'),('C3', 'MERN');
+Query OK, 3 rows affected (0.07 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from student inner join Student_course on student.S_ID = Student_course.S_ID where Student_course.C_ID in (select C_ID from course where C_NAME = 'JAVA');
++------+--------+------------+------------+-------+------+------+
+| S_ID | S_NAME | S_ADDRESS  | S_PHONE    | S_AGE | S_ID | C_ID |
++------+--------+------------+------------+-------+------+------+
+| S3   | Sujit  | Chandigrah | 9178561249 |    20 | S3   | C2   |
+| S4   | Suresh | Delhi      | 9156487596 |    18 | S4   | C2   |
+| S5   | Ratan  | Delhi      | 9567849254 |    20 | S5   | C2   |
++------+--------+------------+------------+-------+------+------+
+3 rows in set (0.00 sec)
+
+mysql> select * from student inner join Student_course on student.S_ID = Student_course.S_ID where Student_course.C_ID in (select C_ID from course where C_NAME = 'JAVA') AND Student.S_ADDRESS = 'Delhi';
++------+--------+-----------+------------+-------+------+------+
+| S_ID | S_NAME | S_ADDRESS | S_PHONE    | S_AGE | S_ID | C_ID |
++------+--------+-----------+------------+-------+------+------+
+| S4   | Suresh | Delhi     | 9156487596 |    18 | S4   | C2   |
+| S5   | Ratan  | Delhi     | 9567849254 |    20 | S5   | C2   |
++------+--------+-----------+------------+-------+------+------+
+2 rows in set (0.00 sec)
+
+========================================================================================================================================================================================
+
+Que2) Write the Query for the following condition-
+-Show the movie name,domestic sales,international sales for each
+movie that did better internationally rather than domestically in
+terms of sales.
+-List all the movies by their ratings in descending order.
+ans--->
+
+mysql> create table Movie(id int , title varchar(18), Director varchar(18), year char(4), length_minutes int);
+Query OK, 0 rows affected (0.14 sec)
+
+mysql>  insert into movie value(1, 'Toy Story', 'John Lasseter', '1995', 81);
+Query OK, 1 row affected (0.08 sec)
+
+mysql>  insert into movie value(2, 'A Bugs Life', 'John Lasseter', '1998', 95),(3,'Toy Story 2', 'John Lasseter','1999',93);
+Query OK, 2 rows affected (0.05 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql>  insert into movie value(4, 'Monsters Inc', 'Pete Docter', '2001', 92),(5,'Civil War','Andrew Stanton','2003',107);
+Query OK, 2 rows affected (0.09 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql>  insert into movie value(6,'The Incredibles', 'Brad Bird', '2004',116);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> create table Movie_rating;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql>
+mysql> create table Movie_rating(movie_id int, rating varchar(4), domestic_sales int, international_sales int);
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> insert into movie_rating values(5, '8.2', 380843261, 555900000),(1, '7.4', 268492764, 475066843),(3, '8', 206445654, 417277164),(2, '6.4', 191452396, 368400000),(4,'7.9',245852179,239163000),(6,'8',261441092,370001000);
+Query OK, 6 rows affected (0.06 sec)
+Records: 6  Duplicates: 0  Warnings: 0
+
+mysql> select title,domestic_sales,international_sales from movie_rating inner join movie on movie_rating.movie_id = movie.id where international_sales > domestic_sales;
++-----------------+----------------+---------------------+
+| title           | domestic_sales | international_sales |
++-----------------+----------------+---------------------+
+| Toy Story       |      268492764 |           475066843 |
+| A Bugs Life     |      191452396 |           368400000 |
+| Toy Story 2     |      206445654 |           417277164 |
+| Civil War       |      380843261 |           555900000 |
+| The Incredibles |      261441092 |           370001000 |
++-----------------+----------------+---------------------+
+5 rows in set (0.00 sec)
+
+
+mysql> select * from movie_rating inner join movie on movie_rating.movie_id = movie.id where order by movie_rating.rating desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'order by movie_rating.rating desc' at line 1
+mysql> select * from movie_rating inner join movie on movie_rating.movie_id = movie.id order by movie_rating.rating desc;
++----------+--------+----------------+---------------------+------+-----------------+----------------+------+----------------+
+| movie_id | rating | domestic_sales | international_sales | id   | title           | Director       | year | length_minutes |
++----------+--------+----------------+---------------------+------+-----------------+----------------+------+----------------+
+|        5 | 8.2    |      380843261 |           555900000 |    5 | Civil War       | Andrew Stanton | 2003 |            107 |
+|        3 | 8      |      206445654 |           417277164 |    3 | Toy Story 2     | John Lasseter  | 1999 |             93 |
+|        6 | 8      |      261441092 |           370001000 |    6 | The Incredibles | Brad Bird      | 2004 |            116 |
+|        4 | 7.9    |      245852179 |           239163000 |    4 | Monsters Inc    | Pete Docter    | 2001 |             92 |
+|        1 | 7.4    |      268492764 |           475066843 |    1 | Toy Story       | John Lasseter  | 1995 |             81 |
+|        2 | 6.4    |      191452396 |           368400000 |    2 | A Bugs Life     | John Lasseter  | 1998 |             95 |
++----------+--------+----------------+---------------------+------+-----------------+----------------+------+----------------+
+6 rows in set (0.00 sec)
+
+========================================================================================================================================================================================
+
+Q4) Write an SQL query to report the first name, last name, city,
+and state of each person in the Person table. If the address of a
+personId is not present in the Address table, report null instead.
+Return the result table in any order
+ans-->
+
+mysql> create table Person(personId int not null, lastName varchar(8), firstName varchar(8));
+Query OK, 0 rows affected (0.14 sec)
+
+mysql> create table address(addressId int not null, personId int, city varchar(20), state varchar(20));
+Query OK, 0 rows affected (0.13 sec)
+
+mysql> insert into address values(1,2,'New york city','New York'),(2,Null,'San Diego','California');
+Query OK, 2 rows affected (0.07 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> drop table address;
+Query OK, 0 rows affected (0.12 sec)
+
+mysql> create table address(addressId int not null, personId int, city varchar(20), state varchar(20));
+Query OK, 0 rows affected (0.17 sec)
+
+mysql> insert into address values(1,2,'New york city','New York'),(2,3,'San Diego','California');
+Query OK, 2 rows affected (0.07 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into Person values(1,'Wang','Allen'),(2,'Allice','Bob');
+Query OK, 2 rows affected (0.08 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select firstName, lastName, city, state from Person inner join address on Person.personId=address.personId;
++-----------+----------+---------------+----------+
+| firstName | lastName | city          | state    |
++-----------+----------+---------------+----------+
+| Bob       | Allice   | New york city | New York |
++-----------+----------+---------------+----------+
+1 row in set (0.13 sec)
+
+mysql> select firstName, lastName, city, state from Person RIGHT join address on Person.personId=address.personId;
++-----------+----------+---------------+------------+
+| firstName | lastName | city          | state      |
++-----------+----------+---------------+------------+
+| Bob       | Allice   | New york city | New York   |
+| NULL      | NULL     | San Diego     | California |
++-----------+----------+---------------+------------+
+2 rows in set (0.05 sec)
+
+mysql> select firstName, lastName, city, state from Person LEFT join address on Person.personId=address.personId;
++-----------+----------+---------------+----------+
+| firstName | lastName | city          | state    |
++-----------+----------+---------------+----------+
+| Allen     | Wang     | NULL          | NULL     |
+| Bob       | Allice   | New york city | New York |
++-----------+----------+---------------+----------+
+2 rows in set (0.00 sec)
+
+mysql>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

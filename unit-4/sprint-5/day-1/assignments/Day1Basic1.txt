@@ -1,0 +1,135 @@
+
+
+mysql> desc deposit;
+ERROR 1046 (3D000): No database selected
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| construct_week_sql |
+| evolution          |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+6 rows in set (0.03 sec)
+
+mysql> use construct_week_sql;
+Database changed
+mysql> create TABLE STUDENT(NAME VARCHAR(20),ROLLNO INT,BRANCH VARCHAR(20),CITY VARCHAR(20));
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> INSERT INTO STUDENT VALUES("VIJAYA",150,"CSE","CHENNAI");
+Query OK, 1 row affected (0.02 sec)
+
+mysql> INSERT INTO STUDENT VALUES("SITA",202,"ETC","KOLKATA");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO STUDENT VALUES("RAVI",300,"EEE","DELHI");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO STUDENT VALUES("BASU",165,"ETC","CHENNAI");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO STUDENT VALUES("RASMI",107,"ETC","RKL");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO STUDENT VALUES("KARAN",111,"CSE","CTC");
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO STUDENT VALUES("RKKHA",117,"BME","BBSR");
+Query OK, 1 row affected (0.01 sec)
+
+mysql> SELECT * FROM STUDENT;
++--------+--------+--------+---------+
+| NAME   | ROLLNO | BRANCH | CITY    |
++--------+--------+--------+---------+
+| VIJAYA |    150 | CSE    | CHENNAI |
+| SITA   |    202 | ETC    | KOLKATA |
+| RAVI   |    300 | EEE    | DELHI   |
+| BASU   |    165 | ETC    | CHENNAI |
+| RASMI  |    107 | ETC    | RKL     |
+| KARAN  |    111 | CSE    | CTC     |
+| RKKHA  |    117 | BME    | BBSR    |
++--------+--------+--------+---------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT BRANCH,COUNT(NAME) FROM STUDENT GROUP BY BRANCH;
++--------+-------------+
+| BRANCH | COUNT(NAME) |
++--------+-------------+
+| CSE    |           2 |
+| ETC    |           3 |
+| EEE    |           1 |
+| BME    |           1 |
++--------+-------------+
+4 rows in set (0.01 sec)
+
+mysql> SELECT BRANCH,COUNT(NAME) FROM STUDENT WHERE BRANCH LIKE "e%" GROUP BY BRANCH;
++--------+-------------+
+| BRANCH | COUNT(NAME) |
++--------+-------------+
+| ETC    |           3 |
+| EEE    |           1 |
++--------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> ALTER TABLE STUDENT ADD MARKS INT;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> SELECT * FROM STUDENT;
++--------+--------+--------+---------+-------+
+| NAME   | ROLLNO | BRANCH | CITY    | MARKS |
++--------+--------+--------+---------+-------+
+| VIJAYA |    150 | CSE    | CHENNAI |  NULL |
+| SITA   |    202 | ETC    | KOLKATA |  NULL |
+| RAVI   |    300 | EEE    | DELHI   |  NULL |
+| BASU   |    165 | ETC    | CHENNAI |  NULL |
+| RASMI  |    107 | ETC    | RKL     |  NULL |
+| KARAN  |    111 | CSE    | CTC     |  NULL |
+| RKKHA  |    117 | BME    | BBSR    |  NULL |
++--------+--------+--------+---------+-------+
+7 rows in set (0.00 sec)
+
+mysql>  DELETE FROM STUDENT WHERE BRANCH="ETC";
+Query OK, 3 rows affected (0.01 sec)
+
+mysql> SELECT * FROM STUDENT;
++--------+--------+--------+---------+-------+
+| NAME   | ROLLNO | BRANCH | CITY    | MARKS |
++--------+--------+--------+---------+-------+
+| VIJAYA |    150 | CSE    | CHENNAI |  NULL |
+| RAVI   |    300 | EEE    | DELHI   |  NULL |
+| KARAN  |    111 | CSE    | CTC     |  NULL |
+| RKKHA  |    117 | BME    | BBSR    |  NULL |
++--------+--------+--------+---------+-------+
+4 rows in set (0.00 sec)
+
+mysql> ALTER TABLE STUDENT RENAME TO STUDINFORMATION;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> SELECT * FROM STUDINFORMATION;
++--------+--------+--------+---------+-------+
+| NAME   | ROLLNO | BRANCH | CITY    | MARKS |
++--------+--------+--------+---------+-------+
+| VIJAYA |    150 | CSE    | CHENNAI |  NULL |
+| RAVI   |    300 | EEE    | DELHI   |  NULL |
+| KARAN  |    111 | CSE    | CTC     |  NULL |
+| RKKHA  |    117 | BME    | BBSR    |  NULL |
++--------+--------+--------+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> DELETE FROM STUDINFORMATION;
+Query OK, 4 rows affected (0.01 sec)
+
+mysql> SELECT * FROM STUDINFORMATION;
+Empty set (0.00 sec)
+
+mysql> DROP TABLE STUDINFORMATION;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> SELECT * FROM STUDINFORMATION;
+ERROR 1146 (42S02): Table 'construct_week_sql.studinformation' doesn't exist
+mysql>

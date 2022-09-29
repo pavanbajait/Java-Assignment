@@ -1,0 +1,20 @@
+What are the advantages of using Hibernate over JDBC?
+
+ans--
+
+
+The problems of JDBC API that developer nedd to face are as follows:
+
+We need to write a lot of code before and after executing the query, such as creating connection, statement, closing resultset, connection etc.
+We need to handle transaction.
+We need to perform exception handling code on the database logic.
+Spring JdbcTemplate eliminates all the above mentioned problems of JDBC API. It provides you methods to write the queries directly, so it saves a lot of work and time.
+Repetition of all these codes from one to another database logic is a time consuming task.
+
+
+The above problems overcame by of HibernateTemplate are:
+
+Various common functions are simplified into single method invocations.
+HibernateTemplate, which is a Spring Template class, can simplify the interactions with Hibernate Sessions.
+The exceptions will be caught automatically, and converts them into runtime exceptions.
+The sessions of hibernate are closed automatically

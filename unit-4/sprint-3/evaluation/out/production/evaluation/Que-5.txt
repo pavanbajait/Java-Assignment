@@ -1,0 +1,16 @@
+Que -5)Explain different types of Normalisation forms in a DBMS with an Example Table.
+
+ans-->
+It is the process of refinement of data or reducing the data redundancy in the table called normalization;
+
+It used to avoid anamoly-
+anamoly is nothing but problems in data & its behaviour,
+like insertion anamoly, update anamoly, deletion anamoly
+
+Therer are two types normalization form in dbms are as:
+1NF--> only single value attributes will be there called atomic attribute.
+2NF--> use to avoid data redundancy
+condn required are: 1NF table, table should not contatin partial dependancy & proper subset of a candidate
+It can be acheived by two ways as :
+1-Intuition
+2-Mathematical Formaulae

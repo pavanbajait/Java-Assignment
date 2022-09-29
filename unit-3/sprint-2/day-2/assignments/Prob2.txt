@@ -1,0 +1,21 @@
+Que-2--> Why String is immutable in java and what is the difference between String and String Builder? And write some of the methods of String class at least 5 with example.
+Answer-->
+i.	String is an object which represents a sequence of characters. Strings are one of the most popular classes used while programming in Java by developers. But, since Strings are immutable, Java came up with two utility classes: StringBuilder and String Buffer to make the String manipulations easy.
+	A String is an unavoidable type of variable while writing any application program. String references are used to store various attributes like username, password, etc. In Java, String objects are immutable. Immutable simply means unmodifiable or unchangeable.
+
+	Once String object is created its data or state can't be changed but a new String object is created.
+ii.	Strings in Java are objects used to represent a sequence of character. They can be either created using the String Literal or by using the NEW keyword. Strings are immutable in Java are represented in the UTF-16 format. When a new String is created, it looks for the String with the same value in the JVM string pool. If it finds a same value, then it returns the reference else it created a String object and places that object in the String pool.
+
+iii.	Apart from this, String uses the + operator to concatenate two strings and internally used the String Buffer to perform this action. If you wish to know more about Strings in Java and its methods.
+
+iv. Java StringBuilder class is used to create mutable (modifiable) String. The Java StringBuilder class is same as StringBuffer class except that it is non-synchronized. It is available since JDK 1.5.
+
+Java String class provides various methods to perform different operations on strings.
+some of them are:
+1. int length(): Returns the number of characters in the String
+2. Char charAt(int i): Returns the character at ith index.
+3. String substring (int i):  Return the substring from the ith index character to end
+4. String substring (int i, int j): Returns the substring from i to j-1 index
+5. String concat( String str): Concatenates specified string to the end of this string.
+6. int indexOf (String s): Returns the index within the string of the first occurrence of
+the specified string.

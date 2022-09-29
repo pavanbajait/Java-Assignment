@@ -1,0 +1,24 @@
+Prob3-->
+ans--->
+Wildcard in Java Generics -
+
+The ? (question mark) symbol represents the wildcard element. It means any type. If we
+write <? extends Number>, it means any child class of Number, e.g., Integer, Float, and
+double. Now we can call the method of Number class through any child class object.
+We can use a wildcard as a type of a parameter, field, return type, or local variable.
+
+Upper Bounded Wildcards
+The purpose of upper bounded wildcards is to decrease the restrictions on a variable. It
+restricts the unknown type to be a specific type or a subtype of that type. It is used by
+declaring wildcard character ("?") followed by the extends (in case of, class) or
+implements (in case of, interface) keyword, followed by its upper bound.
+Syntax:
+List<? extends Number>
+
+Lower Bounded Wildcards:
+The purpose of lower bounded wildcards is to restrict the unknown type to be a specific
+type or a super type of that type. It is used by declaring wildcard character ("?") followed
+by the super keyword, followed by its lower bound.
+
+Syntax:
+List<? super Integer>

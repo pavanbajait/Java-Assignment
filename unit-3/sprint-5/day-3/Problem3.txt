@@ -1,0 +1,21 @@
+Q3) What is the difference between List and Set ?
+ans-->
+
+The List interface allows storing the ordered collection. It is a child interface of Collection. It is an ordered collection of objects in which duplicate values are allowed to store. List preserves the insertion order, it allows positional access and insertion of elements.
+Declaration:
+	public abstract interface List extends Collection
+
+- The List is an indexed sequence.
+- List allows duplicate elements
+- Elements by their position can be accessed.
+- Multiple null elements can be stored
+- List implementations are ArrayList, LinkedList, Vector, Stack
+
+The set interface in the java.util package and extends Collection interface is an unordered collection of objects in which duplicate values cannot be stored. It is an interface that implements the maths set. This interface contains the methods inherited from the Collection interface and adds a feature that restricts to insert the duplicate elements. 
+Declaration: The Set interface is declared as:
+	public interface Set extends Collection
+- The Set is an non-indexed sequence.
+- Set doesn’t allow duplicate elements.
+- Position access to elements is not allowed.
+- Null element can store only once.
+- Set implementations are HashSet, LinkedHashSet.

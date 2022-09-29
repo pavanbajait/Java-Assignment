@@ -1,0 +1,62 @@
+Sample Input:
+It's the end of 2016, and the owner of Cocoa Confections wants to write an SQL
+query that finds the COUNT of orders placed in 2016 by customer e-mail address.
+She wants to ORDER the results by the COUNT of orders placed in 2016,
+descending, so that she can personally send thank-you e-mails to Cocoa
+Confection's top customers by order volume.
+Can you write a query that will help the owner of Cocoa Confections find the
+COUNT of all orders placed in 2016, by customer e-mail address, sorted
+Descending?
+
+Customers:
++-----------------+---------------+--------------+---------------------+------------+-------------+-------+------------+
+| customer_id | first_name | last_name | email | address | city | state | zip_code |
++-----------------+---------------+--------------+--------------------+------------+-------------+-------+-------------+
+| 1 | abc | a | abc@mail.com | 1st street | chennai | TN | 60001 |
+| 2 | efg | e | efg@mail.com | 2nd street | Bangalore | KA| 50002 |
+| 3 | ijk | i | ijk@mail.com | 3nd street | Mumbai| MH | 40002 |
++------------------+----------------+------------+--------------------+---------------+-----------+-------+----------+
+
+Orders:
++-----------+-----------------+--------------------------+
+| order_id | customer_id | order_placed_date |
++-----------+-----------------+--------------------------+
+| 1 | 1 | 2016-11-11 |
+| 2 | 1 | 2016-10-01 |
+| 3 | 2 | 2016-06-01 |
+| 4 | 2 | 2015-06-01 |
+| 5 | 1 | 2015-06-01 |
++----------+-------------+--------------------------------+
+
+solution-->
+
+mysql> use assignment;
+Database changed
+mysql> insert into customers values(2,'efg','e','efg@mail.com','2nd street','Banglore','KA','50002');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into customers values(3,'ijk','i','ijk@mail.com','3rd street','Mumbai','MH','40002');
+Query OK, 1 row affected (0.04 sec)
+
+mysql> insert into Orders values(1,1,'2016-11-11'),(2,1,'2016-10-01'),(3,2,'2016-06-01'),(4,2,'2015-06-01'),(5,1,'2015-06-01');
+Query OK, 5 rows affected (0.09 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from Orders where YEAR(order_placed_date) = 2016;
++----------+-------------+-------------------+
+| order_id | customer_id | order_placed_date |
++----------+-------------+-------------------+
+|        1 |           1 | 2016-11-11        |
+|        2 |           1 | 2016-10-01        |
+|        3 |           2 | 2016-06-01        |
++----------+-------------+-------------------+
+3 rows in set (0.05 sec)
+
+mysql> select email, count(*) from orders inner join customers on orders.customer_id = customers.customer_id where YEAR(order_placed_date)=2016 group by email;
++--------------+----------+
+| email        | count(*) |
++--------------+----------+
+| abc@mail.com |        2 |
+| efg@mail.com |        1 |
++--------------+----------+
+2 rows in set (0.00 sec)

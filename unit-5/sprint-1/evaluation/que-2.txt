@@ -1,0 +1,60 @@
+Que--2)
+
+1--Explain difference between JPA and Hibernate:
+anss--
+JPA--
+	Java Persistence API (JPA) defines the management of relational data in the Java applications.
+	A JPA is a specification of Java which is used to access, manage, and persist data between Java object and
+	relational database. It is considered as a standard approach for Object Relational Mapping.
+	JPA can be seen as a bridge between object-oriented domain models and relational database systems. 
+	Being a specification, JPA doesn't perform any operation by itself. Thus, it requires implementation. So, ORM tools like Hibernate,
+	TopLink, and iBatis implements JPA specifications for data persistence.
+	
+Hybernate--
+	A Hibernate is a Java framework which is used to store the Java objects in the relational database system. It is an open-source, 
+	lightweight, ORM (Object Relational Mapping) tool.
+	Hibernate is an implementation of JPA. So, it follows the common standards provided by the JPA.
+	Hibernate is an Object-Relational Mapping (ORM) tool which is used to save the state of Java object into the database.
+	It uses Session interface to create, read, and delete operations for instances of mapped entity classes. It behaves as a runtime interface between a Java application and Hibernate.
+
+
+
+
+2--Java Persistence API (JPA) defines the management of relational data in the Java applications.
+ans--
+
+--therer are three layer according to 3 logical partition .
+
+1.Presentation Layer(UI layer)
+
+2.Business Logic Layer (Service layer)
+
+3.Data Access Layer 
+
+
+--a bussiness application will be devided into the logical partition depending upon the role played by each part.
+
+--logical partition of a business application is known as layer.
+
+
+Presentation Layer :- 
+-----------------------
+
+--it is set of java classes, which are responsible for generating user input screen and response page(output screen) is knwon as PL.
+
+--this layer provides the intraction with the end-user.
+
+
+Business Logic Layer/Service Layer:-
+------------------------------------------
+
+--programatical implementation of business rule of a business organization is nothing but business logic .
+--a collection of java classes whose methods have business logic to process the data according to the business rule is known as SL/BLL.
+
+
+Data Access Layer :-
+------------------------
+
+--a set of java classes whose methods r exclusivly meant for performing CRUD operation with the DB server is known as DAL.
+
+using JDBC and DAO pattern

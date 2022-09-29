@@ -1,0 +1,377 @@
+Day2- SQL
+
+
+Solution----
+
+mysql> use assignment;
+Database changed
+mysql> create table Person(id int NOT NULL, email varchar(18), Primary Key(id));
+ERROR 1050 (42S01): Table 'person' already exists
+mysql> drop table Person;
+Query OK, 0 rows affected (0.34 sec)
+
+mysql> create table Person(id int NOT NULL, email varchar(18), Primary Key(id));
+Query OK, 0 rows affected (0.15 sec)
+
+mysql> desc Person;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| email | varchar(18) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.26 sec)
+
+mysql> insert into Person values(1,'a@b.com'),(2,'c@d.com'),(3,'a@b.com');
+Query OK, 3 rows affected (0.12 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select Email
+    -> from Person
+    -> group by Email
+    -> having count(Email) ;
++---------+
+| Email   |
++---------+
+| a@b.com |
+| c@d.com |
++---------+
+2 rows in set (0.06 sec)
+
+mysql> select Email from Person group by Email having count(Email) > 1;
++---------+
+| Email   |
++---------+
+| a@b.com |
++---------+
+1 row in set (0.00 sec)
+
+mysql> CREATE DATABASE ORG;
+Query OK, 1 row affected (0.10 sec)
+
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| assignment         |
+| information_schema |
+| mysql              |
+| org                |
+| p1db               |
+| performance_schema |
+| sys                |
++--------------------+
+7 rows in set (0.03 sec)
+
+mysql> USE ORG;
+Database changed
+mysql>
+mysql> CREATE TABLE Worker (
+    -> WORKER_ID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    -> FIRST_NAME CHAR(25),
+    -> LAST_NAME CHAR(25),
+    -> SALARY INT(15),
+    -> JOINING_DATE DATETIME,
+    -> DEPARTMENT CHAR(25)
+    -> );
+Query OK, 0 rows affected, 1 warning (0.13 sec)
+
+mysql> INSERT INTO Worker
+    -> (WORKER_ID, FIRST_NAME, LAST_NAME, SALARY, JOINING_DATE, DEPARTMENT) VALUES
+    -> (001, 'Monika', 'Arora', 100000, '14-02-20 09.00.00', 'HR'),
+    -> (002, 'Niharika', 'Verma', 80000, '14-06-11 09.00.00', 'Admin'),
+    -> (003, 'Vishal', 'Singhal', 300000, '14-02-20 09.00.00', 'HR'),
+    -> (004, 'Amitabh', 'Singh', 500000, '14-02-20 09.00.00', 'Admin'),
+    -> (005, 'Vivek', 'Bhati', 500000, '14-06-11 09.00.00', 'Admin'),
+    -> (006, 'Vipul', 'Diwan', 200000, '14-06-11 09.00.00', 'Account'),
+    -> (007, 'Satish', 'Kumar', 75000, '14-01-20 09.00.00', 'Account'),
+    -> (008, 'Geetika', 'Chauhan', 90000, '14-04-11 09.00.00', 'Admin');
+Query OK, 8 rows affected, 8 warnings (0.07 sec)
+Records: 8  Duplicates: 0  Warnings: 8
+
+mysql> CREATE TABLE Bonus (
+    -> WORKER_REF_ID INT,
+    -> BONUS_AMOUNT INT(10),
+    -> BONUS_DATE DATETIME,
+    -> FOREIGN KEY (WORKER_REF_ID)
+    -> REFERENCES Worker(WORKER_ID)
+    -> ON DELETE CASCADE
+    -> );
+Query OK, 0 rows affected, 1 warning (0.19 sec)
+
+mysql> INSERT INTO Bonus
+    -> (WORKER_REF_ID, BONUS_AMOUNT, BONUS_DATE) VALUES
+    -> (001, 5000, '16-02-20'),
+    -> (002, 3000, '16-06-11'),
+    -> (003, 4000, '16-02-20'),
+    -> (001, 4500, '16-02-20'),
+    -> (002, 3500, '16-06-11');
+Query OK, 5 rows affected (0.09 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> CREATE TABLE Title (
+    -> WORKER_REF_ID INT,
+    -> WORKER_TITLE CHAR(25),
+    -> AFFECTED_FROM DATETIME,
+    -> FOREIGN KEY (WORKER_REF_ID)
+    -> REFERENCES Worker(WORKER_ID)
+    -> ON DELETE CASCADE
+    -> );
+Query OK, 0 rows affected (0.31 sec)
+
+mysql> INSERT INTO Title
+    -> (WORKER_REF_ID, WORKER_TITLE, AFFECTED_FROM) VALUES
+    -> (001, 'Manager', '2016-02-20 00:00:00'),
+    -> (002, 'Executive', '2016-06-11 00:00:00'),
+    -> (008, 'Executive', '2016-06-11 00:00:00'),
+    -> (005, 'Manager', '2016-06-11 00:00:00'),
+    -> (004, 'Asst. Manager', '2016-06-11 00:00:00'),
+    -> (007, 'Executive', '2016-06-11 00:00:00'),
+    -> (006, 'Lead', '2016-06-11 00:00:00'),
+    -> (003, 'Lead', '2016-06-11 00:00:00');
+Query OK, 8 rows affected (0.06 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> show worker;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'worker' at line 1
+mysql> select * from worker;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |
+|         6 | Vipul      | Diwan     | 200000 | 2014-06-11 09:00:00 | Account    |
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+8 rows in set (0.04 sec)
+
+mysql> SELECT MAX(Salary) FROM PERSON WHERE Salary NOT IN (Salary MAX(Salary) from PERSON);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'MAX(Salary) from PERSON)' at line 1
+mysql> SELECT MAX(Salary) FROM PERSON WHERE Salary NOT IN (SELECT MAX(Salary) from PERSON);
+ERROR 1146 (42S02): Table 'org.person' doesn't exist
+mysql> SELECT MAX(Salary) FROM WORKER WHERE Salary NOT IN (SELECT MAX(Salary) from WORKER);
++-------------+
+| MAX(Salary) |
++-------------+
+|      300000 |
++-------------+
+1 row in set (0.05 sec)
+
+mysql> SELECT SALARY FROM WORKER WHERE COUNT(*) = 5 ORDER BY SALARY DESC;
+ERROR 1111 (HY000): Invalid use of group function
+mysql> SELECT SALARY FROM WORKER WHERE COUNT(*) = 5;
+ERROR 1111 (HY000): Invalid use of group function
+mysql>  SELECT DISTINCT(Salary) FROM table ORDER BY Salary DESC LIMIT n,1
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table ORDER BY Salary DESC LIMIT n,1' at line 1
+mysql>  SELECT DISTINCT(Salary) FROM WORKER ORDER BY Salary DESC LIMIT 5,1;
++--------+
+| Salary |
++--------+
+|  80000 |
++--------+
+1 row in set (0.00 sec)
+
+mysql>  SELECT DISTINCT(Salary) FROM WORKER ORDER BY Salary DESC LIMIT 1,4;
++--------+
+| Salary |
++--------+
+| 300000 |
+| 200000 |
+| 100000 |
+|  90000 |
++--------+
+4 rows in set (0.00 sec)
+
+mysql>  SELECT DISTINCT(Salary) FROM WORKER ORDER BY Salary DESC LIMIT 1 OFFSET 4;
++--------+
+| Salary |
++--------+
+|  90000 |
++--------+
+1 row in set (0.00 sec)
+
+mysql>  SELECT DISTINCT(Salary) FROM WORKER ORDER BY Salary DESC LIMIT 4,1;
++--------+
+| Salary |
++--------+
+|  90000 |
++--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT * FROM WORKER ORDER BY WORKER_ID WHERE MOD(WORKER_ID, 2) = 0;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE MOD(WORKER_ID, 2) = 0' at line 1
+mysql> SELECT * FROM WORKER ORDER BY WORKER_ID WHERE mod (WORKER_ID, 2) = 0;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE mod (WORKER_ID, 2) = 0' at line 1
+mysql> SELECT * FROM WORKER ORDER BY WORKER_ID WHERE mod (WORKER_ID, 2) = 0;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE mod (WORKER_ID, 2) = 0' at line 1
+mysql> SELECT * FROM WORKER WHERE mod (WORKER_ID, 2) = 0;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         6 | Vipul      | Diwan     | 200000 | 2014-06-11 09:00:00 | Account    |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM WORKER WHERE mod (WORKER_ID, 2) <> 1;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         2 | Niharika   | Verma     |  80000 | 2014-06-11 09:00:00 | Admin      |
+|         4 | Amitabh    | Singh     | 500000 | 2014-02-20 09:00:00 | Admin      |
+|         6 | Vipul      | Diwan     | 200000 | 2014-06-11 09:00:00 | Account    |
+|         8 | Geetika    | Chauhan   |  90000 | 2014-04-11 09:00:00 | Admin      |
++-----------+------------+-----------+--------+---------------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT * FROM WORKER WHERE mod (WORKER_ID, 2) <> 0;
++-----------+------------+-----------+--------+---------------------+------------+
+| WORKER_ID | FIRST_NAME | LAST_NAME | SALARY | JOINING_DATE        | DEPARTMENT |
++-----------+------------+-----------+--------+---------------------+------------+
+|         1 | Monika     | Arora     | 100000 | 2014-02-20 09:00:00 | HR         |
+|         3 | Vishal     | Singhal   | 300000 | 2014-02-20 09:00:00 | HR         |
+|         5 | Vivek      | Bhati     | 500000 | 2014-06-11 09:00:00 | Admin      |
+|         7 | Satish     | Kumar     |  75000 | 2014-01-20 09:00:00 | Account    |
++-----------+------------+-----------+--------+---------------------+------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT DEPARTMENT, COUNT(*) FROM WORKER GROUP BY DEPARTMENT ORDER BY COUNT(*) DESC;
++------------+----------+
+| DEPARTMENT | COUNT(*) |
++------------+----------+
+| Admin      |        4 |
+| HR         |        2 |
+| Account    |        2 |
++------------+----------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT FIRST_NAME, LAST_NAME FROM WORKER WHERE DISTINCT SALARY;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'DISTINCT SALARY' at line 1
+mysql> SELECT FIRST_NAME, LAST_NAME FROM WORKER GROUP BY SALARY HAVING COUNT(SALARY) > 1;
++------------+-----------+
+| FIRST_NAME | LAST_NAME |
++------------+-----------+
+| Amitabh    | Singh     |
++------------+-----------+
+1 row in set (0.00 sec)
+
+mysql> SELECT FIRST_NAME, LAST_NAME FROM WORKER WHERE SALARY IN (SELECT SALARY FROM WORKER GROUP BY SALARY HAVING COUNT(SALARY) > 1);
++------------+-----------+
+| FIRST_NAME | LAST_NAME |
++------------+-----------+
+| Amitabh    | Singh     |
+| Vivek      | Bhati     |
++------------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> CREATE TABLE EmployeeDetails(EmpId int NOT NULL PRIMARY KEY, FullName varchar(18), ManagerId int, DateOfJoining char(10), city varchar(15));
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> insert into EmployeeDetails(121, 'John Snow',321,'01-31-2014','Toronto'),(321,'Walter white',986,'01-30-2015','California');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '121, 'John Snow',321,'01-31-2014','Toronto'),(321,'Walter white',986,'01-30-2015' at line 1
+mysql> insert into EmployeeDetails values(121, 'John Snow',321,'01-31-2014','Toronto'),(321,'Walter white',986,'01-30-2015','California');
+Query OK, 2 rows affected (0.06 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert into EmployeeDetails values(421,'Kuldeep Rana',876,'27-11-2016','New Delhi');
+Query OK, 1 row affected (0.09 sec)
+
+mysql> create table EmployeeSalary(EmpId int, Project char(2), Salary int,variable int, FOREIGN KEY(EmpId) REFERENCES EmployeeDetails(EmpId));
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> insert into EmployeeSalary values(121,'P1',8000,500),(321,'P2',100000,1000),(421,'P1',12000,0);
+Query OK, 3 rows affected (0.07 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> SELECT FullName
+    -> FROM EmployeeDetails
+    -> WHERE FullName LIKE ‘__hn%’;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '?__hn%?' at line 3
+mysql> WHERE FullName LIKE '__hn%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'WHERE FullName LIKE '__hn%'' at line 1
+mysql>  SELECT FullNameWHERE FullName LIKE '__hn%';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'LIKE '__hn%'' at line 1
+mysql>     -> FROM EmployeeDetails
+    ->     -> WHERE FullName LIKE ‘__hn%’;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '-> FROM EmployeeDetails
+    -> WHERE FullName LIKE ?__hn%?' at line 1
+mysql>  SELECT FullName
+    ->     -> FROM EmployeeDetails
+    ->     -> WHERE FullName LIKE ‘__hn%’;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FROM EmployeeDetails
+    -> WHERE FullName LIKE ?__hn%?' at line 2
+mysql> SELECT FullName
+    -> FROM EmployeeDetails
+    -> WHERE FullName LIKE '__hn%';
++-----------+
+| FullName  |
++-----------+
+| John Snow |
++-----------+
+1 row in set (0.05 sec)
+
+mysql> SELECT *
+    -> FROM EmployeeSalary
+    -> WHERE EmpId IN
+    -> (SELECT EmpId from '
+    '> ;
+    '> ';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''
+;
+'' at line 4
+mysql> SELECT * FROM EMPLOYEEDETAILS INNER JOIN EMPLOYEESALARY ON EmployeeDetails.EmpId = EmployeeSalary.EmpId where EmployeeDetails.EmpId = EmployeeSalary.EmpId;
++-------+--------------+-----------+---------------+------------+-------+---------+--------+----------+
+| EmpId | FullName     | ManagerId | DateOfJoining | city       | EmpId | Project | Salary | variable |
++-------+--------------+-----------+---------------+------------+-------+---------+--------+----------+
+|   121 | John Snow    |       321 | 01-31-2014    | Toronto    |   121 | P1      |   8000 |      500 |
+|   321 | Walter white |       986 | 01-30-2015    | California |   321 | P2      | 100000 |     1000 |
+|   421 | Kuldeep Rana |       876 | 27-11-2016    | New Delhi  |   421 | P1      |  12000 |        0 |
++-------+--------------+-----------+---------------+------------+-------+---------+--------+----------+
+3 rows in set (0.00 sec)
+
+mysql> select * from EmployeeDetails where EmpId IN (Select * EmpId from EmployeeSalary);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'EmpId from EmployeeSalary)' at line 1
+mysql> select * from EmployeeDetails where EmpId IN (Select EmpId from EmployeeSalary);
++-------+--------------+-----------+---------------+------------+
+| EmpId | FullName     | ManagerId | DateOfJoining | city       |
++-------+--------------+-----------+---------------+------------+
+|   121 | John Snow    |       321 | 01-31-2014    | Toronto    |
+|   321 | Walter white |       986 | 01-30-2015    | California |
+|   421 | Kuldeep Rana |       876 | 27-11-2016    | New Delhi  |
++-------+--------------+-----------+---------------+------------+
+3 rows in set (0.03 sec)
+
+mysql> SELECT EmpId FROM
+    -> EmployeeDetails
+    -> where EmpId Not IN
+    -> (SELECT EmpId FROM EmployeeSalary);
+Empty set (0.00 sec)
+
+mysql> SELECT * FROM EMPLOYEEDETAILS INNER JOIN EMPLOYEESALARY ON EmployeeDetails.EmpId = EmployeeSalary.EmpId where EmployeeDetails.EmpId <> EmployeeSalary.EmpId;
+Empty set (0.00 sec)
+
+mysql> Select MAX(e2.salary), MIN(e2.salary), AVG(e2.salary) from EMPLOYEEDETAILS INNER JOIN EMPLOYEESALARY ON e1.EmpId = e2.EmpId;
+ERROR 1054 (42S22): Unknown column 'e2.salary' in 'field list'
+mysql> Select MAX(e2.salary), MIN(e2.salary), AVG(e2.salary) from EMPLOYEEDETAILS e1 INNER JOIN e2 EMPLOYEESALARY ON e1.EmpId = e2.EmpId;
+ERROR 1146 (42S02): Table 'org.e2' doesn't exist
+mysql> Select MAX(e2.salary), MIN(e2.salary), AVG(e2.salary) from EMPLOYEEDETAILS e1 INNER JOIN EMPLOYEESALARY e2 ON e1.EmpId = e2.EmpId;
++----------------+----------------+----------------+
+| MAX(e2.salary) | MIN(e2.salary) | AVG(e2.salary) |
++----------------+----------------+----------------+
+|         100000 |           8000 |     40000.0000 |
++----------------+----------------+----------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT EmpId
+    -> FROM EmployeeSalary
+    -> WHERE Project IS NULL;
+Empty set (0.00 sec)
+
+mysql>

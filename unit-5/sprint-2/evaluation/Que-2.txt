@@ -1,0 +1,28 @@
+Que-2--Explain the difference between JPA and Hibernate, and
+	What are the advantages of using Hibernate over JDBC?
+
+ans---
+
+1) Java Persistence API 
+
+	A JPA is a specification of Java which is used to access, manage, and persist data between Java object and relational database.
+	It is considered as a standard approach for Object Relational Mapping.
+	JPA can be seen as a bridge between object-oriented domain models and relational database systems.
+	Being a specification, JPA doesn't perform any operation by itself. Thus, it requires implementation. So, ORM tools like Hibernate,
+	TopLink, and iBatis implements JPA specifications for data persistence.
+
+2)Hybernate
+
+	Hibernate is an Object-Relational Mapping (ORM) tool which is used to save the state of Java object into the database.
+	A Hibernate is a Java framework which is used to store the Java objects in the relational database system. 
+	It is an open-source, lightweight, ORM (Object Relational Mapping) tool.
+	Hibernate is an implementation of JPA. So, it follows the common standards provided by the JPA
+
+Advantages of Hybernate over JDBC--
+	--Hibernate provides Hibernate Query Language (HQL) which is similar to SQL syntax and supports polymorphic queries too. 
+	  It also supports native SQL statements.
+	--Hibernate itself takes care of this mapping using XML files so developer does not need to write code for this.
+	--Developer has to write code in JDBC to map an object model's data representation to a relational data model and its corresponding database schema.
+	--JDBC supports only native Structured Query Language (SQL).
+	--The mapping of Java objects with database tables has to be taken care of in JDBC. Hibernate provides transparent persistence and therefore there is no need to map database tables tuples to application objects during interaction with RDBMS.
+	--With JDBC, caching needs to be manually maintained. Hibernate cache is set to application work space. Relational tuples are moved to this cache as a result of query. It improves performance during multiple writes for the same data.

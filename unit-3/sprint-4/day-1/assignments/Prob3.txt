@@ -1,0 +1,38 @@
+Q-3) Explain the difference between abstract class and interface.
+Ans-->
+Abstract class
+- A class that is declared as abstract is known as an abstract class. It can have abstract
+and non-abstract methods. It needs to be extended and its method implemented. It
+cannot be instantiated.
+- To achieve security - hide certain details and only show the important details of an object, we uae Abstract classes.
+- An abstract class must be declared with an abstract keyword.
+It can have abstract and non-abstract methods.
+It cannot be instantiated (object creation).
+It can have constructors and static methods also.
+It can have final methods which will force the subclass not to change the body of the
+method.
+An Abstract class can have abstract and non-abstract methods.
+An Abstract class doesn't support multiple inheritance. 
+ An Abstract class can have final, non-final, static and nonstatic variables .
+An Abstract class can provide the implementation of interface.
+An abstract class can extend another Java class and implement multiple Java interfaces.
+A Java abstract class can have class members like private, protected, etc.
+
+
+
+Interfaces
+- Java does not support "multiple inheritance" (a class can only inherit from one superclass). However, it can be achieved with interfaces, because the class can implement multiple interfaces. 
+-  To achieve security - hide certain details and only show the important details of an object (interface).
+- Like abstract classes, interfaces cannot be used to create objects (in the example above, it is not possible to create an "Animal" object in the MyMainClass)
+- Interface methods do not have a body - the body is provided by the "implement" class
+- On implementation of an interface, you must override all of its methods
+- Interface methods are by default abstract and public
+- Interface attributes are by default public, static and final
+- An interface cannot contain a constructor (as it cannot be used to create objects)
+An Interface can have only abstract methods. Since Java 8, it can have default and static methods also.
+An Interface supports multiple inheritance. .
+ An Interface has only static and final variables .
+An Interface can't provide the implementation of abstract class .
+An interface can extend another Java interface only.
+Members of a Java interface are public by default
+

@@ -1,0 +1,12 @@
+Question 2
+What is the ACID acronym for? Describe each property individually with your own words.
+
+ans---
+
+
+ACID--Atomicity, Consistency, Isolation, Durability)
+
+Atomicity - aspect of the acid model mainly involves InnoDB transactions 
+Consistency - mainly involves internal innoDB only to protect data from crashes		
+Isolation-  involves in particular, the isolation level that applies to each transaction thread
+Durability -- invollves mysql s/w feature interacting with our hardware configuration.

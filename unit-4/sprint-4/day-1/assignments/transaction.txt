@@ -1,0 +1,132 @@
+2) Describe Transactions in sql with your own words.
+ans--
+Transactions & ACID Properties
+
+A transaction is a sequence of operations performed (using one or more SQL statements) on a
+database as a single logical unit of work.
+
+
+Properties of a Transaction
+The effects of all the SQL statements in a transaction can be either all committed (applied to the
+database) or all rolled back (undone from the database). A database transaction must be atomic,
+consistent, isolated and durable.
+A database transaction must be atomic, consistent, isolated and durable. Bellow we have
+discussed these four points.
+
+Atomic : A transaction is a logical unit of work which must be either completed with all of its data
+modifications, or none of them is performed.
+Consistent : At the end of the transaction, all data must be left in a consistent state.
+Isolated : Modifications of data performed by a transaction must be independent of another
+transaction. Unless this happens, the outcome of a transaction may be erroneous.
+Durable : When the transaction is completed, effects of the modifications performed by the
+transaction must be permanent in the system.
+
+When a transaction completes normally, a transaction processing system commits the changes
+made to the data; that is, it makes them permanent and visible to other transactions.
+When a transaction does not complete normally, the system rolls back (or backs out) the changes;
+that is, it restores the data to its last consistent state.
+
+Resources that can be rolled back to their state at the start of a transaction are known as
+recoverable resources: resources that cannot be rolled back are nonrecoverable.
+
+
+3) Create a table Bank with following field;
+Name  Account Number Balance
+Ram   ac-12123        50000
+John  ac-w4123        60000
+David ac-23134        10000
+
+Transfer INR 10000 from Jhon’s account to David’s bank account
+Using Transactions in MySQL.
+
+query;
+
+mysql> use assignment;
+Database changed
+mysql> create table Bank;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table Bank(Name varchar(8), AccountNumber char(8), Balance int);
+Query OK, 0 rows affected (0.35 sec)
+
+mysql> insert into table values('Ram','ac-12123',50000),('John','ac-w4123',60000),('David','ac-23134',10000);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table values('Ram','ac-12123',50000),('John','ac-w4123',60000),('David','ac-2313' at line 1
+mysql> insert into Bank values('Ram','ac-12123',50000),('John','ac-w4123',60000),('David','ac-23134',10000);
+Query OK, 3 rows affected (0.13 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> set autocommit = 0;
+Query OK, 0 rows affected (0.10 sec)
+
+mysql> savepoint p1;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> delete name from Bank where balance = 50000;
+ERROR 1109 (42S02): Unknown table 'name' in MULTI DELETE
+mysql> delete from Bank where balance = 50000;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from Bank;
++-------+---------------+---------+
+| Name  | AccountNumber | Balance |
++-------+---------------+---------+
+| John  | ac-w4123      |   60000 |
+| David | ac-23134      |   10000 |
++-------+---------------+---------+
+2 rows in set (0.00 sec)
+
+mysql> rooback to p1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'rooback to p1' at line 1
+mysql> rollback to p1;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from Bank;
++-------+---------------+---------+
+| Name  | AccountNumber | Balance |
++-------+---------------+---------+
+| Ram   | ac-12123      |   50000 |
+| John  | ac-w4123      |   60000 |
+| David | ac-23134      |   10000 |
++-------+---------------+---------+
+3 rows in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> start transaction;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> update
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> update Bank set balance = balance - 10000 where name = 'John' AND set balance = balance + 10000 where name = 'David';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'set balance = balance + 10000 where name = 'David'' at line 1
+mysql> update Bank set balance = balance - 10000 where name = 'John';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update Bank set balance = balance + 10000 where name = 'David';
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> commit;
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from Bank;
++-------+---------------+---------+
+| Name  | AccountNumber | Balance |
++-------+---------------+---------+
+| Ram   | ac-12123      |   50000 |
+| John  | ac-w4123      |   50000 |
+| David | ac-23134      |   20000 |
++-------+---------------+---------+
+3 rows in set (0.00 sec)
+
+mysql>
+
+
+
+
+
+
+
+

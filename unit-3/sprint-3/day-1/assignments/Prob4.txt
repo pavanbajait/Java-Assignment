@@ -1,0 +1,21 @@
+Q4 What is instance of operator explain with an example?
+answer:-
+The java instance of operator is used to test whether the object is an instance of the specified type (class or subclass or interface).
+The instanceof in java is also known as type comparison operator because it compares the instance with type.
+It returns either true or false.If we apply the instanceof operator with any variable that has null value, it returns false.
+instance of is a keyword that is used for checking if a reference variable is containing a given type of object reference or not. 
+Following is a Java program to show different behaviors of instanceof. Henceforth it is known as a comparison operator 
+where the instance is getting compared to type returning boolean true or false as in java we do not have 0 and 1 boolean return types.
+
+ex-->
+
+class Animal{
+--
+}
+class Dog extends Animal{//Dog inherits Animal
+public static void main(String args[]){
+Dog d=new Dog();
+System.out.println(d instanceof Dog);//true
+System.out.println(d instanceof Animal);//true
+}
+}

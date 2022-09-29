@@ -1,0 +1,30 @@
+Q4/- What do you mean by the Spring Bean, explain the life
+cycle of the Spring Bean.
+
+Ans---
+
+Any java class, which will be registered with the "Spring container software" is known as Spring bean.
+Spring bean class is POJO class, it need not implements any spring f/w API specific interface or extend any
+class to facilitate the spring container to control the life cycle of a spring bean. i.e. for spring beans, component
+contract is not required.
+
+Bean life-cycle:
+
+Spring container control the life-cycle of spring bean class from instantiation to destruction.
+
+Life-cycle of a spring bean has 5 stages:
+
+1. Does not exist phase:--Initially a spring bean object does not exist, if the bean object is in singleton scope then bean is instantiated by
+	container at the time of loading the xml file.
+	
+2. Instantiation phase:--Spring container loads the spring bean class into the memory and creates the bean class object.
+	after that then bean class object is created, spring container uses DI to populate the bean fields
+
+3. Initialization phase:--Inside the spring bean class any user-defined init-method is configured , spring container will call that method.
+		Unless initialization phase is over , spring container does not gives bean reference to the caller.
+
+4. Service phase / Ready to use phase:--Here spring container provides the bean object reference to the caller, then caller can call its business method
+		on that bean object.
+
+5. Destruction phase:--Upon the container shutdown (when we call close() method on the container class ) spring container will call
+		user-defined destroy() method if it is configured, just before bean instance is garbage collected.

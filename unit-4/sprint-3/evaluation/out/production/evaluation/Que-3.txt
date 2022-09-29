@@ -1,0 +1,33 @@
+Que--3)Write an SQL query to find the employees who earn more than their managers.
+Return the result table in any order.
+
+ans-->
+create table Employee(id int NOT NULL, name varchar(10), salary int, managerId int);
+Query OK, 0 rows affected (0.18 sec)
+
+mysql> insert into table values(1,'Joe','70000',3),(2,'Henry',80000),(3,'Sam',60000, NULL),(4,'Max',90000,NULL);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table values(1,'Joe','70000',3),(2,'Henry',80000),(3,'Sam',60000, NULL),(4,'Max'' at line 1
+mysql> insert into table values(1,'Joe','70000',3),(2,'Henry',80000,4),(3,'Sam',60000, NULL),(4,'Max',90000,NULL);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table values(1,'Joe','70000',3),(2,'Henry',80000,4),(3,'Sam',60000, NULL),(4,'Ma' at line 1
+mysql> insert into Employee values(1,'Joe','70000',3),(2,'Henry',80000,4),(3,'Sam',60000, NULL),(4,'Max',90000,NULL);
+Query OK, 4 rows affected (0.06 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select name as Employee from Employee;
++----------+
+| Employee |
++----------+
+| Joe      |
+| Henry    |
+| Sam      |
+| Max      |
++----------+
+4 rows in set (0.00 sec)
+
+mysql> select e2.name as Employee from Employee e1 join Employee e2 on e1.id = e2.ManagerId where e1.salary < e2.salary;
++----------+
+| Employee |
++----------+
+| Joe      |
++----------+
+1 row in set (0.00 sec)

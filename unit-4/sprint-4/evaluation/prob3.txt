@@ -1,0 +1,52 @@
+Question 3
+solution---
+
+
+mysql>  CREATE TABLE onlinecustomers (customerid INT PRIMARY KEY auto_increment ,CustomerName
+    -> VARCHAR(100) ,CustomerCity VARCHAR(100) ,Customermail VARCHAR(100));
+Query OK, 0 rows affected (0.40 sec)
+
+mysql> CREATE TABLE orders (orderId INT PRIMARY KEY auto_increment , customerid INT ,ordertotal
+    -> float ,discountrate float ,orderdate DATETIME);
+ERROR 1050 (42S01): Table 'orders' already exists
+mysql> drop table orders;
+Query OK, 0 rows affected (0.75 sec)
+
+mysql> CREATE TABLE orders (orderId INT PRIMARY KEY auto_increment , customerid INT ,ordertotal float ,discountrate float ,orderdate DATETIME);
+Query OK, 0 rows affected (0.38 sec)
+
+mysql> CREATE TABLE sales (salesId INT PRIMARY KEY auto_increment,orderId INT ,salestotal FLOAT);
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> insert into table values(1, 'Pavan','Hgt','pbajait@gmail.com'),(2,'Ram','Nagpur','ram@gmail.com'),(3,'Sam','Mumbai'\,'san@gmail.com'),(4,'Radha','Pune','radja@gmail.com'),(5,'bal','wardha','bal@!gmaoil.com');
+ERROR:
+Unknown command '\,'.
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table values(1, 'Pavan','Hgt','pbajait@gmail.com'),(2,'Ram','Nagpur','ram@gmail.' at line 1
+mysql> insert into table values(1, 'Pavan','Hgt','pbajait@gmail.com'),(2,'Ram','Nagpur','ram@gmail.com'),(3,'Sam','Mumbai','san@gmail.com'),(4,'Radha','Pune','radja@gmail.com'),(5,'bal','wardha','bal@!gmaoil.com');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'table values(1, 'Pavan','Hgt','pbajait@gmail.com'),(2,'Ram','Nagpur','ram@gmail.' at line 1
+mysql> insert into onlinecustomers values(1, 'Pavan','Hgt','pbajait@gmail.com'),(2,'Ram','Nagpur','ram@gmail.com'),(3,'Sam','Mumbai','san@gmail.com'),(4,'Radha','Pune','radja@gmail.com'),(5,'bal','wardha','bal@!gmaoil.com');
+Query OK, 5 rows affected (0.13 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> insert into orders values(12, 2, 2500.00, 100.00, '24/04/2022');
+ERROR 1292 (22007): Incorrect datetime value: '24/04/2022' for column 'orderdate' at row 1
+mysql> insert into orders values(12, 2, 2500.00, 100.00, '2022-04-12');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into orders values(13, 3, 2400.00, 100.00, '2022-04-13'),(14, 7, 2200.00, 50.00, '2022-04-25'),(15, 4, 2100.00, 40.00);
+ERROR 1136 (21S01): Column count doesn't match value count at row 3
+mysql> insert into orders values(13, 3, 2400.00, 100.00, '2022-04-13'),(14, 7, 2200.00, 50.00, '2022-04-25'),(15, 4, 2100.00, 40.00,'2022-04-23');
+Query OK, 3 rows affected (0.10 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> insert into sales values(123, 14, 2500.00),(124,12,2400.00),(121,15,2600.00),(126,17,1236.00);
+Query OK, 4 rows affected (0.21 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select customerName, customerCity, customermail, ordertotal from onlinecustomers AS c inner join orders AS o on c.customerid = o.customerid LEFT JOIN sales AS s ON o.orderId = s.orderId where s.salesId IS null;
++--------------+--------------+---------------+------------+
+| customerName | customerCity | customermail  | ordertotal |
++--------------+--------------+---------------+------------+
+| Sam          | Mumbai       | san@gmail.com |       2400 |
++--------------+--------------+---------------+------------+
+1 row in set (0.00 sec)
