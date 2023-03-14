@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admitted</title>
+    <style>
+        .navbar{
+            width:100%;
+            height: 80px;
+            display:flex;
+            justify-content: space-around;
+            box-shadow: rgba(0, 0, 0, 0.45) 0px 25px 20px -20px;
+            color: black;
+        }
+        h1{
+            color: black;
+        }
+        body > h1 {
+            text-align: center;
+            margin-top: 50px;
+        }
+        #form{
+            border: 1px solid white;
+            width:30%;
+            margin:auto;
+            margin-top: 50px; 
+            padding:20px;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+       }
+       input{
+        width: 96%;
+        margin-bottom: 5px;
+       }
+       select{
+        width:100%;
+        margin-bottom: 5px;
+
+       }
+       #submit {
+        width: 100%;
+        border:0px solid white;
+       }
+    </style>
+
+</head>
+
+<body>
+    <div class="navbar">
+        <a href="./index.html">
+            <h1>Add Students</h1>
+        </a>
+        <a href="./students.html">
+            <h1>Students Database</h1>
+        </a>
+        <a href="./admitted.html">
+            <h1>Admitted</h1>
+        </a>
+        <a href="./rejected.html">
+            <h1>Rejected</h1>
+        </a>
+    </div>
+    <table cellspacing="0">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Course</th>
+                <th>Gender</th>
+                <th>Phone</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- All the rows should be appended here  -->
+        </tbody>
+    </table>
+</body>
+<script src="./admitted.js"></script>
+
+</html>

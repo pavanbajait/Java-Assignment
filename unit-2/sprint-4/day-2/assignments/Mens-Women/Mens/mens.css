@@ -1,0 +1,22 @@
+#container{
+    border:1px solid red;
+    width:100%;
+    margin:auto;
+    display:grid;
+    grid-template-columns: repeat(4,24%);
+    grid-template-rows: repeat(9,auto);
+    gap:1%;
+}
+#container > div {
+    border:1px solid blue;
+    margin-bottom: -20px;
+}
+#container > div > img + p {
+    font-weight: bold;
+    font-size: 14px;;
+}
+#container > div > img{
+    border:1px solid yellow;
+    width:180x;
+    margin-bottom: -20px;
+}

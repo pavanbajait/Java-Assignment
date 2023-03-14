@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LogIn</title>
+    <style>
+        h1{
+            text-align: center;
+            font-size: 50px;
+        }
+        h2 {
+            text-align: center;
+            
+        }
+        #container{
+            width:30%;
+            border: 1px solid white;
+            border-radius: 15px;
+            margin:auto;
+            margin-top: 40px;
+            padding:0px 15px 0px 15px;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+   
+        }
+        #form1{
+            width:94%;
+            margin:auto; 
+            margin-bottom:30px;        
+        }
+        input{
+            width: 95.5%;
+            margin:8px;
+            margin-left: 0px;
+            margin-bottom: 30px;
+            padding: 10px;
+            font-size: medium;
+            border:1px solid grey;
+            border-radius: 5px;
+        }
+        label > div{
+            display:flex;
+            justify-content: space-between;
+            margin-bottom: -20px;
+        }
+        p{
+            color:grey;
+            font-size: 18px;
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 0px;
+        }
+        #signin{
+            margin-top: 5px;
+            padding:12px;
+            width: 100%;
+            font-size: medium;
+            color:grey;
+            border:1px solid white;
+            border-radius: 5px;
+        }
+        button{
+            padding:10px;
+            width: 100%;
+            font-size: medium;
+            border-radius: 5px;
+            margin-top:0px;
+            background-color: white;
+            margin-bottom: 15px;
+        }
+        label {
+            font-size: medium;
+        }
+        span {
+            color:blue;
+            text-align: left;
+        } 
+    </style>
+</head>
+<body>
+    <h1>masai</h1>
+    <div id="container">
+        <h2>Log In</h2>
+        <form id="form1">
+            <label for="">Email</label><br>
+            <input id="ipMail" type="email" placeholder="Enter email"><br>
+            <label for=""><div><div>Password</div>  <span>Forgot Password?</span></div></label><br>
+            <input id="ipPassword" type="password" placeholder="Enter password">
+            <input type="submit" id="signin" value="SIGN IN">
+            <button>
+                <img src="https://sso.masaischool.com/google.svg" alt="">
+                CONTINUE WITH GOOGLE
+            </button>
+            <p>Don't have an account? <span><a href="SignUp.html">Sign Up</a> </span></p>
+        </form>
+    </div>
+   
+</body>
+</html>
+
+<script>
+    let arrFrmLS=JSON.parse(localStorage.getItem("userData"));
+     
+    document.querySelector("#form1").addEventListener("submit", mySignIn);
+
+    function mySignIn(event){
+        event.preventDefault();   
+
+        checkEmailPwd(arrFrmLS);
+        
+    }
+    function checkEmailPwd(arrFrmLS){
+            let flag=false;
+                       
+            arrFrmLS.forEach(function (el) {
+                let iUserEmail= document.querySelector("#ipMail").value;
+                let iUserPwd= document.querySelector("#ipPassword").value;
+                
+                 if(el.userEmail==iUserEmail && el.userPwd==iUserPwd){
+                    flag=true;
+                 }
+            });
+            if(flag==true){
+                alert("Login Sucessful!");
+            }else{
+                alert("Entered Credentials are wrong!");
+            }
+        }
+
+        
+</script>
